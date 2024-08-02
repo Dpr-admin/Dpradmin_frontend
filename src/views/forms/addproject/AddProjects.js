@@ -103,6 +103,7 @@ const AddProjects = () => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        
       });
       if (response.status === 201) {
         setAlert({

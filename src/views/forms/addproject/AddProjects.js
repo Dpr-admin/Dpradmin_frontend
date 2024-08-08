@@ -15,7 +15,6 @@ import {
   CFormSelect
 } from '@coreui/react';
 
-
 const highlightsOptions = Array.from({ length: 25 }, (_, i) => ({ value: `Highlight${i + 1}`, label: `Highlight${i + 1}` }));
 const amenitiesOptions = Array.from({ length: 25 }, (_, i) => ({ value: `Amenity${i + 26}`, label: `Amenity${i + 26}` }));
 const locationHighlightsOptions = Array.from({ length: 25 }, (_, i) => ({ value: `LocationHighlight${i + 51}`, label: `LocationHighlight${i + 51}` }));
@@ -49,10 +48,6 @@ const customStyles = {
   }),
 };
 // get the /auth/builders and get the builder names from the backend use axios to fetch the data
-
-
-
-
 
 const allowedCategories = [
   "apartment",
@@ -149,7 +144,6 @@ const AddProjects = () => {
         form.append(key, value);
       }
     }
-
     form.append('batch', step);
     
     console.log(form);

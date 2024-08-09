@@ -112,11 +112,11 @@ const AddProjects = () => {
   const [highlightsOptions, setHighlightsOptions] = useState([]);
   const [amenitiesOptions, setAmenitiesOptions] = useState([]);
   const [locationHighlightsOptions, setLocationHighlightsOptions] = useState([]);
-
+  const apiUrl1=import.meta.env.VITE_BUILDERS_API
   useEffect(() => {
     const fetchBuilderNames = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/auth/builders');
+        const response = await axios.get(apiUrl1);
         setBuilderNames(response.data.map(builder => builder.builderName));
       } catch (error) {
         console.error('Error fetching builder names:', error);
@@ -185,7 +185,7 @@ const AddProjects = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    const apiUrl = import.meta.env.VITE_PROJECTS_API
     const form = new FormData();
     // Append regular fields
     for (const [key, value] of Object.entries(formData)) {
@@ -205,7 +205,7 @@ const AddProjects = () => {
 
 
     try {
-      const response = await axios.post('http://localhost:5000/auth/projects', form, {
+      const response = await axios.post(apiUrl, form, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

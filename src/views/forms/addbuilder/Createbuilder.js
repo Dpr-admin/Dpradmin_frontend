@@ -30,8 +30,10 @@ const CreateBuilder = () => {
     formData.append('about', about);
     formData.append('logoImage', logoImage);
     formData.append('officeAddress', officeAddress);
+  const apiUrl = import.meta.env.VITE_BUILDERS_API;
+
     try {
-      const response = await axios.post('http://localhost:5000/auth/builders', formData, {
+      const response = await axios.post(apiUrl, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

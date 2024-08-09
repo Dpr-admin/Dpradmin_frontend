@@ -5,6 +5,7 @@ import { cilLockLocked, cilUser } from '@coreui/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -15,7 +16,8 @@ const Login = () => {
   axios.defaults.withCredentials = true;
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:5000/auth/login', { email, password })
+    const apiUrl = import.meta.env.VITE_LOGIN_API;
+    axios.post(apiUrl,{ email, password })
       .then(response => {
         if (response.data.token) {
           // Set token in localStorage

@@ -66,10 +66,10 @@ const UpdateProject = () => {
     floorplan2: null,
     masterfloorplan: null,
   });
-
+  const apiUrl = import.meta.env.VITE_PROJECTS_API;
   useEffect(() => {
     if (projectId) {
-      axios.get(`http://localhost:5000/auth/projects/${projectId}`)
+      axios.get(`${apiUrl}/${projectId}`)
         .then(response => {
           setProjectData(response.data);
         })

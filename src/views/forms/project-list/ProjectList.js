@@ -24,7 +24,9 @@ const ProjectList = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/auth/projects');
+      const apiUrl = import.meta.env.VITE_PROJECTS_API;
+
+      const response = await axios.get(apiUrl);
       if (Array.isArray(response.data)) {
         setProjects(response.data);
       } else {
@@ -48,7 +50,7 @@ const ProjectList = () => {
 
   const handleDelete = async (projectId) => {
     try {
-      await axios.delete(`http://localhost:5000/auth/projects/${projectId}`);
+      await axios.delete(`${apiUrl}/${projectId}`);
       setAlertMessage('Project deleted successfully.');
       setAlertColor('success');
       fetchProjects(); // Refresh the project list

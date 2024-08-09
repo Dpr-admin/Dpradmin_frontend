@@ -11,7 +11,8 @@ const Register = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:5000/auth/register', { username, email, password })
+    const apiUrl= import.meta.env.VITE_REGISTER_API;
+    axios.post(apiUrl, { username, email, password })
       .then(response => {
         if (response.data.status) {
           navigate('/login');

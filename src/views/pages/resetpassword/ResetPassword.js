@@ -9,12 +9,10 @@ function ResetPassword() {
     const [password, setPassword] = useState('');
     const { token } = useParams()
     const navigate = useNavigate();
-  
-    
-  
+    const apiUrl = import.meta.env.VITE_RESETPASSWORD_API;
     const handleSubmit = (e) => {
       e.preventDefault();
-      axios.post(`http://localhost:5000/auth/resetPassword/${token}` , { password })
+      axios.post(`${apiUrl}/${token}` , { password })
         .then(response => {
           if(response.data.status){
             navigate('/login');

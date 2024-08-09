@@ -28,13 +28,15 @@ import axios from 'axios'
 const AppHeaderDropdown = () => {
 
   const navigate = useNavigate();
-  
+  const apiUrl = import.meta.env.VITE_LOGOUT_API;
+
 const handleLogout = () => {
-  axios.get('http://localhost:5000/auth/logout')
+  axios.get(apiUrl)
     .then(res => {
       if (res.data.status) {
-        // Clear the token cookie
+        // Clear the token from both cookie and localStorage
         document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        localStorage.removeItem('token');
         
         // Redirect to login page
         navigate('/login');
@@ -43,6 +45,7 @@ const handleLogout = () => {
       console.log(err);
     });
 };
+
   return (
     <CDropdown variant="nav-item">
       <CDropdownToggle placement="bottom-end" className="py-0 pe-0" caret={false}>

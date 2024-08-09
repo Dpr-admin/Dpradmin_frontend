@@ -9,12 +9,13 @@ function ForgotPassword() {
     const [email, setEmail] = useState('');
  
     const navigate = useNavigate();
+    const apiUrl = import.meta.env.VITE_FORGOTPASSWORD_API
   
     
   
     const handleSubmit = (e) => {
       e.preventDefault();
-      axios.post('http://localhost:5000/auth/forgotpassword', { email })
+      axios.post(apiUrl, { email })
         .then(response => {
           if(response.data.status){
             alert("check your email for reset password link")

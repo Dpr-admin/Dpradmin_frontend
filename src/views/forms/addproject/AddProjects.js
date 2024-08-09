@@ -14,10 +14,22 @@ import {
   CAlert,
   CFormSelect
 } from '@coreui/react';
+import {
+  ApartmentHighlights,
+  ApartmentAmenities,
+  ApartmentLocationHighlights,
+  VillaHighlights,
+  VillaAmenities,
+  VillaLocationHighlights,
+  CommercialHighlights,
+  CommercialAmenities,
+  CommercialLocationHighlights,
+  PlotHighlights,
+  PlotAmenities,
+  PlotLocationHighlights
+} from './options';
 
-const highlightsOptions = Array.from({ length: 25 }, (_, i) => ({ value: `Highlight${i + 1}`, label: `Highlight${i + 1}` }));
-const amenitiesOptions = Array.from({ length: 25 }, (_, i) => ({ value: `Amenity${i + 26}`, label: `Amenity${i + 26}` }));
-const locationHighlightsOptions = Array.from({ length: 25 }, (_, i) => ({ value: `LocationHighlight${i + 51}`, label: `LocationHighlight${i + 51}` }));
+
 
 const customStyles = {
   control: (provided) => ({
@@ -49,17 +61,19 @@ const customStyles = {
 };
 // get the /auth/builders and get the builder names from the backend use axios to fetch the data
 
+
+
+
+
 const allowedCategories = [
   "apartment",
   "commercial",
   "villa",
-  "villa plots",
-  "farm lands",
-  "open plots",
-  "standalone apartments"
+  "plots",
 ]; 
 
 const AddProjects = () => {
+
   const [builderNames, setBuilderNames] = useState([]);
 
 
@@ -95,6 +109,10 @@ const AddProjects = () => {
   const [step, setStep] = useState(1);
   const [alert, setAlert] = useState(null);
 
+  const [highlightsOptions, setHighlightsOptions] = useState([]);
+  const [amenitiesOptions, setAmenitiesOptions] = useState([]);
+  const [locationHighlightsOptions, setLocationHighlightsOptions] = useState([]);
+
   useEffect(() => {
     const fetchBuilderNames = async () => {
       try {
@@ -107,6 +125,39 @@ const AddProjects = () => {
   
     fetchBuilderNames();
   }, []);
+
+
+
+  useEffect(() => {
+    switch (formData.category) {
+      case 'apartment':
+        setHighlightsOptions(ApartmentHighlights);
+        setAmenitiesOptions(ApartmentAmenities);
+        setLocationHighlightsOptions(ApartmentLocationHighlights);
+        break;
+      case 'villa':
+        setHighlightsOptions(VillaHighlights);
+        setAmenitiesOptions(VillaAmenities);
+        setLocationHighlightsOptions(VillaLocationHighlights);
+        break;
+      case 'commercial':
+        setHighlightsOptions(CommercialHighlights);
+        setAmenitiesOptions(CommercialAmenities);
+        setLocationHighlightsOptions(CommercialLocationHighlights);
+        break;
+      case 'plots':
+        setHighlightsOptions(PlotHighlights);
+        setAmenitiesOptions(PlotAmenities);
+        setLocationHighlightsOptions(PlotLocationHighlights);
+        break;
+      default:
+        setHighlightsOptions([]);
+        setAmenitiesOptions([]);
+        setLocationHighlightsOptions([]);
+    }
+  }, [formData.category]);
+
+  
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -122,6 +173,8 @@ const AddProjects = () => {
       });
     }
   };
+
+ 
 
   const handleMultiSelectChange = (selectedOptions, name) => {
     setFormData({
@@ -144,9 +197,12 @@ const AddProjects = () => {
         form.append(key, value);
       }
     }
+
     form.append('batch', step);
     
     console.log(form);
+      
+
 
     try {
       const response = await axios.post('http://localhost:5000/auth/projects', form, {
